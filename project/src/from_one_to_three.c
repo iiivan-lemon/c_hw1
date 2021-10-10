@@ -3,6 +3,10 @@
 #include "from_one_to_three.h"
 
 int *columns(int n) {
+    if (n < 3) {
+        return NULL;
+    }
+
     int *a;
     a = (int *) malloc(3 * sizeof(int));
     if (a == NULL) {
@@ -23,10 +27,13 @@ int *columns(int n) {
         return NULL;
     }
 
-    return  a;
+    return a;
 }
 
-void free_res(int ***res, int *col, int m) {
+int free_res(int ***res, int m) {
+    if (res == NULL) {
+        return -1;
+    }
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < m; ++j)
             free(res[i][j]);
@@ -35,7 +42,8 @@ void free_res(int ***res, int *col, int m) {
         free(res[i]);
     }
     free(res);
-    free(col);
+
+    return 0;
 }
 
 
@@ -51,7 +59,7 @@ int ***from_one_to_three(int **a, int m, int n) {
         return NULL;
     }
 
-    int* col = columns(n);
+    int *col = columns(n);
     if (col == NULL) {
         free(res);
         return NULL;

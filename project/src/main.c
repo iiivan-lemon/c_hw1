@@ -5,12 +5,11 @@
 
 
 int main() {
-    int m = 3;
-    int a[3][3] = {{1, 1, 1}, {2, 2, 2}, {3, 3, 3}};
+    int m = 1;
+    int a[1][1] = {{1}};
     int **pa = (int **) a;
-    int *col;
-    int ***res = from_one_to_three(pa, 3, 3);
-    col = columns(3);
+    int ***res = from_one_to_three(pa, 1, 1);
+    int *col = columns(1);
     if (col == NULL) {
         return 1;
     }
@@ -22,7 +21,10 @@ int main() {
         }
         printf("\n");
     }
-    free_res(res, col, m);
+    if (free_res(res, m) == -1) {
+        return -1;
+    }
+    free(col);
 
 
     return 0;

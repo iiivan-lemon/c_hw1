@@ -5,14 +5,16 @@ extern "C" {
 #include "from_one_to_three.h"
 }
 
-#define SUCCESS_CODE 0
+
 
 
 TEST(NOT_NULL_TEST, Assert_1) {
     int a[1][10] = {{5, 6, 7, 8, 9, 5, 6, 7, 8, 9}};
     int **pa = (int **) a;
-    EXPECT_FALSE(from_one_to_three(pa, 1, 10) == nullptr);
+    int ***res = from_one_to_three(pa, 1, 10);
+    EXPECT_FALSE(res == nullptr);
     EXPECT_FALSE(pa == nullptr);
+    free_res(res, 1);
 }
 
 TEST(VALUE_CHECK, Assert_2) {
@@ -29,20 +31,19 @@ TEST(VALUE_CHECK, Assert_2) {
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 2; ++j) {
             for (int k = 0; k < col[i]; ++k) {
-                EXPECT_EQ(test[i][j][k] , res[i][j][k]);
+                EXPECT_EQ(test[i][j][k], res[i][j][k]);
             }
         }
     }
-    free_res(res, col, 2);
+    free_res(res, 2);
+    free(col);
 }
 
 TEST(BAD_VALUE, Assert_3) {
     int a[1][1] = {{1}};
-    int** pa = (int **) a;
-    int *col;
-    col = columns(1);
-    EXPECT_TRUE(from_one_to_three(pa, 1, 1) == nullptr);
-    EXPECT_TRUE(col == nullptr);
+    int **pa = (int **) a;
+    int ***res = from_one_to_three(pa, 1, 1);
+    EXPECT_TRUE(res == nullptr);
 }
 
 TEST(NULL_TEST, Assert_4) {
