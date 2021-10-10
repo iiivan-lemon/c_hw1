@@ -23,6 +23,7 @@ jobs:
         run: ./linters/run.sh
 
       - name: Tests
+        run: mkdir runtests && cd runtests && cmake .. && make && ./runTests && lcov -t "c_hw1" -o coverage.txt -c -d . && cp coverage.txt ../
 
       - name: Valgrind
         run: sudo apt-get update && sudo apt-get install -y valgrind && mkdir valgrind_tests && cd valgrind_tests && cmake .. && make && valgrind --tool=memcheck --leak-check=full ./runTests
@@ -33,3 +34,4 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.txt
           flags: unittests
+
