@@ -3,7 +3,8 @@
 #include "from_one_to_three.h"
 
 int *columns(int n) {
-    int *a = (int *) malloc(3 * sizeof(int));
+    int *a;
+    a = (int *) malloc(3 * sizeof(int));
     if (a == NULL) {
         return NULL;
     }
@@ -22,7 +23,7 @@ int *columns(int n) {
         return NULL;
     }
 
-    return a;
+    return  a;
 }
 
 void free_res(int ***res, int *col, int m) {
@@ -50,7 +51,7 @@ int ***from_one_to_three(int **a, int m, int n) {
         return NULL;
     }
 
-    int *col = columns(n);
+    int* col = columns(n);
     if (col == NULL) {
         free(res);
         return NULL;
@@ -85,5 +86,6 @@ int ***from_one_to_three(int **a, int m, int n) {
             }
         }
     }
+    free(col);
     return res;
 }
