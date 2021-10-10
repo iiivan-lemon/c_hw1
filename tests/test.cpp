@@ -13,7 +13,6 @@ TEST(NOT_NULL_TEST, Assert_1) {
     int **pa = (int **) a;
     EXPECT_FALSE(from_one_to_three(pa, 1, 10) == nullptr);
     EXPECT_FALSE(pa == nullptr);
-
 }
 
 TEST(VALUE_CHECK, Assert_2) {
@@ -32,12 +31,9 @@ TEST(VALUE_CHECK, Assert_2) {
             for (int k = 0; k < col[i]; ++k) {
                 EXPECT_EQ(test[i][j][k] , res[i][j][k]);
             }
-
         }
     }
     free_res(res, col, 2);
-
-
 }
 
 TEST(BAD_VALUE, Assert_3) {
@@ -53,7 +49,6 @@ TEST(NULL_TEST, Assert_4) {
     int a[] = {5, 6, 7, 8, 9, 5, 6, 7, 8, 9};
     int **pa = (int **) a;
     EXPECT_TRUE(from_one_to_three(pa, 10, 0) == nullptr);
-
 }
 
 
