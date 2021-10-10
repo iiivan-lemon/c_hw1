@@ -17,3 +17,4 @@ find_package(GTest REQUIRED)
 set(SOURCES tests/run_tests.cpp tests/test.cpp )
 add_executable(runTests ${SOURCES})
 target_link_libraries(runTests GTest::gtest utils)
+
