@@ -4,13 +4,13 @@ project(c_hw1 C CXX)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -Wpedantic -Werror --coverage")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wpedantic -Werror --coverage")
+add_compile_options("--coverage")
+add_link_options("--coverage")
 
-add_library(utils STATIC project/src/from_one_to_three.c)
-target_include_directories(utils PUBLIC project/include)
+add_library(utils STATIC project/from_one_to_three.c)
+target_include_directories(utils PUBLIC project)
 
-add_executable(c_hw1 project/src/main.c)
+add_executable(c_hw1 project/main.c)
 target_link_libraries(c_hw1 utils)
 
 find_package(GTest REQUIRED)
