@@ -15,6 +15,7 @@ TEST(NOT_NULL_TEST, Assert_1) {
     EXPECT_FALSE(res == nullptr);
     EXPECT_FALSE(pa == nullptr);
     free_res(res, 1);
+
 }
 
 TEST(VALUE_CHECK, Assert_2) {
@@ -52,4 +53,33 @@ TEST(NULL_TEST, Assert_4) {
     EXPECT_TRUE(from_one_to_three(pa, 10, 0) == nullptr);
 }
 
+TEST(COLUMNS_CHECK, Assert_5) {
+    int *col1 = columns(5);
+    int *col2 = columns(4);
+    int *col3 = columns(3);
+
+    int exp_col1[3] = {2,1,2};
+    int exp_col2[3] = {1,1,2};
+    int exp_col3[3] = {1,1,1};
+    for(int i =0 ;i  < 3; ++i){
+        EXPECT_EQ(col1[i], exp_col1[i]);
+        EXPECT_EQ(col2[i], exp_col2[i]);
+        EXPECT_EQ(col3[i], exp_col3[i]);
+    }
+}
+
+TEST(COLUMNS_CHECK, Assert_6) {
+    int *col1 = columns(5);
+    int *col2 = columns(4);
+    int *col3 = columns(3);
+
+    int exp_col1[3] = {2,1,2};
+    int exp_col2[3] = {1,1,2};
+    int exp_col3[3] = {1,1,1};
+    for(int i =0 ;i  < 3; ++i){
+        EXPECT_EQ(col1[i], exp_col1[i]);
+        EXPECT_EQ(col2[i], exp_col2[i]);
+        EXPECT_EQ(col3[i], exp_col3[i]);
+    }
+}
 

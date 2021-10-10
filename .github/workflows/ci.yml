@@ -23,7 +23,6 @@ jobs:
         run: ./linters/run.sh
 
       - name: Tests
-        run: mkdir runtests && cd runtests && cmake .. && make && ./runTests && lcov -t "tp_c_hw1" -o coverage.txt -c -d . && cp coverage.txt ../
 
       - name: Valgrind
         run: sudo apt-get update && sudo apt-get install -y valgrind && mkdir valgrind_tests && cd valgrind_tests && cmake .. && make && valgrind --tool=memcheck --leak-check=full ./runTests
@@ -31,6 +30,6 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: '58db41b4-0483-40a5-b6f6-59d5fff0c435'
           file: ./coverage.txt
           flags: unittests

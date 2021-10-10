@@ -5,11 +5,12 @@
 
 
 int main() {
-    int m = 1;
-    int a[1][1] = {{1}};
+    int m = 2;
+    int a[2][4] = {{1, 2, 3, 4},
+                   {5, 6, 7, 8}};
     int **pa = (int **) a;
-    int ***res = from_one_to_three(pa, 1, 1);
-    int *col = columns(1);
+    int ***res = from_one_to_three(pa, 2, 4);
+    int *col = columns(4);
     if (col == NULL) {
         return 1;
     }
@@ -18,14 +19,11 @@ int main() {
             for (int k = 0; k < col[i]; ++k) {
                 printf("%d ", res[i][j][k]);
             }
+            printf("\n");
         }
-        printf("\n");
     }
-    if (free_res(res, m) == -1) {
-        return -1;
-    }
+
+    free_res(res, 2);
     free(col);
-
-
     return 0;
 }

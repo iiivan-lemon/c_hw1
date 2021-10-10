@@ -30,10 +30,7 @@ int *columns(int n) {
     return a;
 }
 
-int free_res(int ***res, int m) {
-    if (res == NULL) {
-        return -1;
-    }
+void free_res(int ***res, int m) {
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < m; ++j)
             free(res[i][j]);
@@ -42,8 +39,6 @@ int free_res(int ***res, int m) {
         free(res[i]);
     }
     free(res);
-
-    return 0;
 }
 
 
