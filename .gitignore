@@ -71,3 +71,9 @@ dkms.conf
 /project/*.gcno
 
 /project/from_one_to_three.gcno
+/example-html.html
+/from_one_to_three.gcda
+/from_one_to_three.gcno
+/main.gcda
+/main.gcno
+/program
