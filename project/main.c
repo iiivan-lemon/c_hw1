@@ -3,8 +3,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include "from_one_to_three.h"
-#define EXIT_SUCCESS 0
-#define EXIT_FAILURE 1
+
 
 int main() {
     int m = 0;

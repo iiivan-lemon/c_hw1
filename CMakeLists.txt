@@ -4,8 +4,7 @@ project(c_hw1 C CXX)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
 
-add_compile_options("--coverage")
-add_link_options("--coverage")
+
 
 add_library(utils STATIC project/from_one_to_three.c)
 target_include_directories(utils PUBLIC project)

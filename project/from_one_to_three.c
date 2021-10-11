@@ -8,7 +8,7 @@ int *amount_columns(int n) {
     }
 
     int *a;
-    a = (int *) malloc(3 * sizeof(int));
+    a = (int *) malloc(3 * sizeof(size_t));
     if (a == NULL) {
         return NULL;
     }
@@ -46,7 +46,7 @@ int ***from_one_to_three(int **a, int m, int n) {
 
     int *pa = (int *) a;
     int ***res;
-    res = (int ***) malloc(3 * sizeof(int **));
+    res = (int ***) malloc(3 * sizeof(size_t **));
     if (res == NULL) {
         return NULL;
     }
@@ -58,14 +58,14 @@ int ***from_one_to_three(int **a, int m, int n) {
     }
 
     for (int i = 0; i < 3; ++i) {
-        res[i] = (int **) malloc(m * sizeof(int *));
+        res[i] = (int **) malloc(m * sizeof(size_t *));
         if (res[i] == NULL) {
             free(res);
             free(col);
             return NULL;
         }
         for (int j = 0; j < m; ++j) {
-            res[i][j] = (int *) malloc(col[i] * sizeof(int));
+            res[i][j] = (int *) malloc(col[i] * sizeof(size_t));
             if (res[i][j] == NULL) {
                 free(res);
                 free(col);
