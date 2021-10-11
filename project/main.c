@@ -3,6 +3,8 @@
 #include <malloc.h>
 #include <stdlib.h>
 #include "from_one_to_three.h"
+#define EXIT_SUCCESS 0
+#define EXIT_FAILURE 1
 
 int main() {
     int m = 0;
@@ -25,7 +27,7 @@ int main() {
     int ***res = from_one_to_three(pa, m, n);
     int *col = amount_columns(n);
     if (col == NULL) {
-        exit(1);
+        return(EXIT_FAILURE);
     }
 
     for (int i = 0; i < 3; ++i) {
@@ -40,5 +42,5 @@ int main() {
 
     free_res(res, 2);
     free(col);
-    exit(0);
+    return(EXIT_SUCCESS);
 }

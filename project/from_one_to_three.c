@@ -12,7 +12,6 @@ int *amount_columns(int n) {
     if (a == NULL) {
         return NULL;
     }
-
     switch (n % 3) {
         case 0:
             a[0] = a[1] = a[2] = n / 3;
@@ -26,7 +25,6 @@ int *amount_columns(int n) {
             a[1] = a[2] - 1;
             break;
     }
-
     return a;
 }
 
@@ -40,7 +38,6 @@ void free_res(int ***res, int m) {
     }
     free(res);
 }
-
 
 int ***from_one_to_three(int **a, int m, int n) {
     if (a == NULL || m < 1 || n < 1) {
@@ -76,7 +73,6 @@ int ***from_one_to_three(int **a, int m, int n) {
             }
         }
     }
-
 
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < n; ++j) {
