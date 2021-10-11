@@ -1,19 +1,33 @@
 #include <stdio.h>
 #include <assert.h>
 #include <malloc.h>
+#include <stdlib.h>
 #include "from_one_to_three.h"
 
-
 int main() {
-    int m = 2;
-    int a[2][4] = {{1, 2, 3, 4},
-                   {5, 6, 7, 8}};
-    int **pa = (int **) a;
-    int ***res = from_one_to_three(pa, 2, 4);
-    int *col = columns(4);
-    if (col == NULL) {
-        return 1;
+    int m = 0;
+    int n = 0;
+    printf("enter num of rows and columns: \n");
+    if (scanf("%d%d", &m, &n) == -1) {
+        exit(1);
     }
+    int a[m][n];
+    printf("enter values for a[%d][%d]\n", m, n);
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (scanf("%d", &a[i][j]) == -1) {
+                exit(1);
+            }
+        }
+    }
+    printf("\n");
+    int **pa = (int **) a;
+    int ***res = from_one_to_three(pa, m, n);
+    int *col = amount_columns(n);
+    if (col == NULL) {
+        exit(1);
+    }
+
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < m; ++j) {
             for (int k = 0; k < col[i]; ++k) {
@@ -21,9 +35,10 @@ int main() {
             }
             printf("\n");
         }
+        printf("\n");
     }
 
     free_res(res, 2);
     free(col);
-    return 0;
+    exit(0);
 }

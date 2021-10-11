@@ -5,9 +5,6 @@ extern "C" {
 #include "from_one_to_three.h"
 }
 
-
-
-
 TEST(NOT_NULL_TEST, Assert_1) {
     int a[1][10] = {{5, 6, 7, 8, 9, 5, 6, 7, 8, 9}};
     int **pa = (int **) a;
@@ -26,7 +23,7 @@ TEST(VALUE_CHECK, Assert_2) {
     pa = (int **) a;
     int *col;
     int ***res = from_one_to_three(pa, 2, 6);
-    col = columns(6);
+    col = amount_columns(6);
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 2; ++j) {
             for (int k = 0; k < col[i]; ++k) {
@@ -52,9 +49,9 @@ TEST(NULL_TEST, Assert_4) {
 }
 
 TEST(COLUMNS_CHECK, Assert_5) {
-    int *col1 = columns(5);
-    int *col2 = columns(4);
-    int *col3 = columns(3);
+    int *col1 = amount_columns(5);
+    int *col2 = amount_columns(4);
+    int *col3 = amount_columns(3);
 
     int exp_col1[3] = {2, 1, 2};
     int exp_col2[3] = {1, 1, 2};
