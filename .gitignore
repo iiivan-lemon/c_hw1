@@ -1,0 +1,79 @@
+# Default ignored files
+/shelf/
+/project/.idea/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+cmake-build-debug/
+.idea/
+CMakeFiles/
+Testing/
+
+
+code_coverage/
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+/cmake-build-debug/
+/project/*.gcda
+/project/*.gcno
+
+/project/from_one_to_three.gcno
+/example-html.html
+/from_one_to_three.gcda
+/from_one_to_three.gcno
+/main.gcda
+/main.gcno
+/program
