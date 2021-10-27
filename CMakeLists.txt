@@ -9,8 +9,13 @@ set(GCC_COVERAGE_COMPILE_FLAGS "-pthread ")
 
 
 
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS} -Wall -Wpedantic -Werror --coverage")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wpedantic -Werror --coverage")
+
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS} -Wall -Wpedantic -Werror --coverage -fsanitize=address  -fsanitize=undefined ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wpedantic -Werror --coverage ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=undefined")
+
+
 
 add_library(input_data STATIC project/input_data.c)
 target_include_directories(input_data PUBLIC project)
@@ -36,7 +41,8 @@ endif(parallel)
 find_package(GTest REQUIRED)
 
 add_executable(tests tests/prog_test.cpp tests/input_test.cpp )
-target_link_libraries(tests GTest::gtest consistent input_data)
+target_link_libraries(tests GTest::gtest consistent input_data )
+target_link_libraries(tests -fsanitize=address)
 
 add_executable(tests_parallel tests/parallel_prog_test.cpp tests/input_test.cpp)
 target_link_libraries(tests_parallel GTest::gtest  parallel input_data)

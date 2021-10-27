@@ -27,10 +27,12 @@ TEST(Comparision2, Time) {
     double time_consistent = 0;
     double time_parallel = 0;
 
-    fscanf(f_consistent, "%lf", &time_consistent);
-    fscanf(f_parallel, "%lf", &time_parallel);
-    printf("Consistent: %lf\n", time_consistent);
-    printf("Parallel: %lf\n", time_parallel);
+    EXPECT_EQ(fscanf(f_consistent, "%lf", &time_consistent),1);
+        printf("Consistent: %lf\n", time_consistent);
+
+    EXPECT_EQ(fscanf(f_parallel, "%lf", &time_parallel),1);
+        printf("Parallel: %lf\n", time_parallel);
+
     fclose(f_parallel);
     fclose(f_consistent);
 }
