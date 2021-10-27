@@ -10,8 +10,8 @@ set(GCC_COVERAGE_COMPILE_FLAGS "-pthread ")
 
 
 
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS} -Wall -Wpedantic -Werror  ")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wpedantic -Werror --coverage ")
+set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS} -Wall -Wpedantic -Werror --coverage  ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wpedantic -Werror  --coverage ")
 
 
 
@@ -31,20 +31,20 @@ add_executable(hw_2 project/main.c )
 
 if(parallel)
     message("parallel")
-    target_link_libraries(hw_2  parallel )
+    target_link_libraries(hw_2  parallel  gcov)
 else()
     message("consistent")
-    target_link_libraries(hw_2   consistent)
+    target_link_libraries(hw_2   consistent gcov)
 endif(parallel)
 
 find_package(GTest REQUIRED)
 
 add_executable(tests tests/prog_test.cpp tests/input_test.cpp )
-target_link_libraries(tests GTest::gtest consistent input_data )
-target_link_libraries(tests)
+target_link_libraries(tests GTest::gtest consistent input_data gcov )
+
 
 add_executable(tests_parallel tests/parallel_prog_test.cpp tests/input_test.cpp)
-target_link_libraries(tests_parallel GTest::gtest  parallel input_data)
+target_link_libraries(tests_parallel GTest::gtest  parallel input_data gcov)
 
 add_executable(comparison tests/comparison.cpp )
-target_link_libraries(comparison GTest::gtest)
+target_link_libraries(comparison GTest::gtest gcov)

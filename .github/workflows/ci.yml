@@ -25,18 +25,15 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN}}
 
       - name: Tests
-        run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && ./tests_parallel && ./comparison && lcov -t "hw_2" -o coverage.txt -c -d . && cp coverage.txt ../
+        run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && ./tests_parallel && ./comparison && gcovr -r .. --html -o example-html.html
 
       - name: Valgrind install
         run: sudo apt-get update && sudo apt-get install -y valgrind && mkdir valgrind_tests  
       - name: Valgrind 
         run: cd valgrind_tests && cmake .. && make && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests_parallel
-      
-      - name: get coverage
-        run: make get-all-coverage
 
       - name: coverage
         uses: actions/upload-artifact@v2
         with:
           name: coverage
-          path: coverage_output/
+          path: example-html.html
