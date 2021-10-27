@@ -37,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage
-          path: runtests/report/index.html
+          path: runtests/report
