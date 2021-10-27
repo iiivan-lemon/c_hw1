@@ -32,10 +32,11 @@ jobs:
       - name: Valgrind 
         run: cd valgrind_tests && cmake .. && make && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests_parallel
       
+      - name: get coverage
+        run: make get-all-coverage
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
+      - name: coverage
+        uses: actions/upload-artifact@v2
         with:
-          token: 58db41b4-0483-40a5-b6f6-59d5fff0c435
-          file: ./coverage.txt
-          flags: unittests
+          name: coverage
+          path: coverage_output/
