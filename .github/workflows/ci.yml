@@ -25,7 +25,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN}}
 
       - name: Tests
-        run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && ./tests_parallel && ./comparison && gcovr -r .. --html -o example-html.html
+        run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && ./tests_parallel && ./comparison &&  lcov -t "c_hw1" -o hw_2.info -c -d . && genhtml -o report hw_2.info
+
 
       - name: Valgrind install
         run: sudo apt-get update && sudo apt-get install -y valgrind && mkdir valgrind_tests  
@@ -36,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage
-          path: example-html.html
+          path: report/index.html
