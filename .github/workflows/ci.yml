@@ -42,7 +42,7 @@ jobs:
           name: coverage
           path: runtests/report
 
-      - name:
+      - name: clang-format
         - uses: actions/checkout@v2
         - uses: DoozyX/clang-format-lint-action@v0.13
           with:
