@@ -1,27 +1,25 @@
 #include <gtest/gtest.h>
-#include <cstdlib>
-#include <random>
-
-#define PATH "text.txt"
 
 extern "C" {
 #include "prog.h"
 #include "input_data.h"
 }
 
-#define STRESS_ITERATION_NUMBER 10
-#define SIZE_CONDITION 100
 #define BAD_SIZE 1
+#define ITERATION_NUMBER 10
+#define PATH "text.txt"
+#define SIZE_CONDITION 100000
+#define STRESS_ITERATION_NUMBER 3
 
 TEST(TestParallel1, Bisector) {
-    int *a = (int *) malloc(SIZE_CONDITION * sizeof(int));
-    for (int i = 0; i < SIZE_CONDITION; ++i) {
+    double *a = (double *) malloc(SIZE_CONDITION * sizeof(double));
+    for (size_t i = 0; i < SIZE_CONDITION; ++i) {
         a[i] = i;
     }
     res_coef expect_res;
     expect_res.k = 1;
     expect_res.b = 0;
-    res_coef *res = run_prog(a, SIZE_CONDITION);
+    res_coef *res = linear_regress(a, SIZE_CONDITION);
     EXPECT_TRUE(res->k == expect_res.k);
     EXPECT_TRUE(res->b == expect_res.b);
     free(res);
@@ -30,23 +28,27 @@ TEST(TestParallel1, Bisector) {
 
 TEST(TestParallel2, RandomElems) {
     EXPECT_TRUE(write_file(PATH, SIZE_CONDITION) == EXIT_SUCCESS);
-    int *a = read_file(PATH, SIZE_CONDITION);
+    double *a = read_file(PATH);
     EXPECT_TRUE(a != nullptr);
-    res_coef *res = run_prog(a, SIZE_CONDITION);
     FILE *f = fopen("../data/parallel_res.txt", "w+");
     EXPECT_FALSE(f == nullptr);
-    fprintf(f, "%f %f", res->k, res->b);
+
+    for (int i = 0; i < STRESS_ITERATION_NUMBER; ++i) {
+        res_coef *res = linear_regress(a, rand() % SIZE_CONDITION);
+        fprintf(f, "%f %f ", res->k, res->b);
+        free(res);
+    }
+
     fclose(f);
-    free(res);
     free(a);
 }
 
 TEST(BadValueParallel, BadSize) {
-    int *a = (int *) malloc(BAD_SIZE * sizeof(int));
-    for (int i = 0; i < BAD_SIZE; ++i) {
+    double *a = (double *) malloc(BAD_SIZE * sizeof(double));
+    for (size_t i = 0; i < BAD_SIZE; ++i) {
         a[i] = i;
     }
-    res_coef *res = run_prog(a, BAD_SIZE);
+    res_coef *res = linear_regress(a, BAD_SIZE);
     EXPECT_TRUE(res == nullptr);
     free(res);
     free(a);
@@ -57,17 +59,24 @@ TEST(time, time) {
     double general_time = 0;
     double average_time;
 
-    size_t times = STRESS_ITERATION_NUMBER;
-    int *a = read_file(PATH, SIZE_CONDITION);
+    struct timespec start, finish;
+
+    size_t times = ITERATION_NUMBER;
+    double *a = read_file(PATH);
+
     for (size_t i = 0; i < times; ++i) {
-        double timer;
-        timer = clock();
-        res_coef *res = run_prog(a, SIZE_CONDITION);
-        timer = clock() - timer;
-        general_time += timer;
+        clock_gettime(CLOCK_MONOTONIC, &start);
+
+        res_coef *res = linear_regress(a, SIZE_CONDITION);
+
+        clock_gettime(CLOCK_MONOTONIC, &finish);
+        double elapsed = (finish.tv_sec - start.tv_sec);
+        elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
+        general_time += elapsed;
+
         free(res);
     }
-    average_time = general_time / times / CLOCKS_PER_SEC;
+    average_time = general_time / times;
     FILE *f = fopen("../data/parallel_time.txt", "w+");
     fprintf(f, "%lf", average_time);
 

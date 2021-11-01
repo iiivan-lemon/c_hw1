@@ -1,14 +1,14 @@
-#include <pthread.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <unistd.h>
+
 #include "prog.h"
 
 
 typedef struct {
     size_t col_start;
     size_t col_end;
-    int *array;
+    double *array;
     double Sx;
     double Sy;
     double Sxx;
@@ -29,7 +29,7 @@ void *thread_func(void *thread_data) {
 }
 
 
-res_coef *run_prog(int *a, const int size) {
+res_coef *linear_regress(double *a, const size_t size) {
     if (size <= 1) {
         return NULL;
     }

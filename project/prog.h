@@ -1,7 +1,7 @@
 #ifndef PROJECT_PROG_H_
 #define PROJECT_PROG_H_
+
 #include <stdio.h>
-#include <string.h>
 
 struct res_coefficients {
     double k;
@@ -9,7 +9,7 @@ struct res_coefficients {
 };
 typedef struct res_coefficients res_coef;
 
-res_coef *run_prog(int *, const int);
+res_coef *linear_regress(double *, const size_t);
 
 
 #endif     //   PROJECT_PROG_H_

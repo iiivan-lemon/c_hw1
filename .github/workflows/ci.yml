@@ -19,10 +19,8 @@ jobs:
       - name: Build
         run: mkdir build && cd build && cmake .. && make
 
-      - name: cppcheck-action
-        uses: deep5050/cppcheck-action@v2.0.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
+      - name: C/C++ code linter (clang-tidy, clang-format, and cppcheck)
+        uses: ArtificialAmateur/cpp-linter-action@0.01
 
       - name: Tests
         run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && ./tests_parallel && ./comparison &&  lcov -t "c_hw1" -o hw_2.info -c -d . && genhtml -o report hw_2.info

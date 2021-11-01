@@ -1,21 +1,21 @@
 #include <gtest/gtest.h>
-#include <cstdlib>
-#include <random>
-
 
 TEST(Comparision1, Results) {
     FILE *f_consistent = fopen("../data/consistent_res.txt", "r");
     FILE *f_parallel = fopen("../data/parallel_res.txt", "r");
-    double res_consistent = 0;
-    double res_parallel = 0;
-    for (int i = 0; i < 2; ++i) {
-        if (fscanf(f_consistent, "%lf", &res_consistent) != 1) {
+    double res_consistent_k = 0;
+    double res_consistent_b = 0;
+    double res_parallel_k = 0;
+    double res_parallel_b = 0;
+    for (int i = 0; i < 3; ++i) {
+        if (fscanf(f_consistent, "%lf %lf", &res_consistent_k, &res_consistent_b) != 2) {
             fclose(f_consistent);
         }
-        if (fscanf(f_parallel, "%lf", &res_parallel) != 1) {
+        if (fscanf(f_parallel, "%lf %lf", &res_parallel_k, &res_parallel_b) != 2) {
             fclose(f_parallel);
         }
-        EXPECT_EQ(res_parallel, res_consistent);
+        EXPECT_EQ(res_consistent_k, res_parallel_k);
+        EXPECT_EQ(res_consistent_b, res_parallel_b);
     }
     fclose(f_parallel);
     fclose(f_consistent);
@@ -27,11 +27,11 @@ TEST(Comparision2, Time) {
     double time_consistent = 0;
     double time_parallel = 0;
 
-    EXPECT_EQ(fscanf(f_consistent, "%lf", &time_consistent),1);
-        printf("Consistent: %lf\n", time_consistent);
+    EXPECT_EQ(fscanf(f_consistent, "%lf", &time_consistent), 1);
+    printf("Consistent: %lf\n", time_consistent);
 
-    EXPECT_EQ(fscanf(f_parallel, "%lf", &time_parallel),1);
-        printf("Parallel: %lf\n", time_parallel);
+    EXPECT_EQ(fscanf(f_parallel, "%lf", &time_parallel), 1);
+    printf("Parallel: %lf\n", time_parallel);
 
     fclose(f_parallel);
     fclose(f_consistent);
