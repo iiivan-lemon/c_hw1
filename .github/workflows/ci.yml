@@ -22,9 +22,16 @@ jobs:
       - name: cppcheck-action
         uses: deep5050/cppcheck-action@v2.0.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
+          github_token: ${{ secrets.GITHUB_TOKEN}
 
-      
+     - name: Run clang-tidy
+       uses: HorstBaerbel/action-clang-tidy@1.2
+       with:
+         scandir: 'project'
+         builddir: 'cmake-build-debug'
+         excludedirs: ''
+         extensions: 'c,h,cpp'
+         cmakeoptions: ''
 
 
       - name: Tests
@@ -42,12 +49,6 @@ jobs:
           name: coverage
           path: runtests/report
 
-      - name: clang-format
-        - uses: actions/checkout@v2
-        - uses: DoozyX/clang-format-lint-action@v0.13
-          with:
-            source: '.'
-            exclude: './project ./tests'
-            extensions: 'h,cpp,c'
-            clangFormatVersion: 6
-            style: chromium
+      
+
+      
