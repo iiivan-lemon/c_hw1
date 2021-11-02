@@ -24,16 +24,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}
 
-     - name: Run clang-tidy
-       uses: HorstBaerbel/action-clang-tidy@1.2
-       with:
-         scandir: 'project'
-         builddir: 'cmake-build-debug'
-         excludedirs: ''
-         extensions: 'c,h,cpp'
-         cmakeoptions: ''
-
-
       - name: Tests
         run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && ./tests_parallel && ./comparison &&  lcov -t "c_hw1" -o hw_2.info -c -d . && genhtml -o report hw_2.info
 
