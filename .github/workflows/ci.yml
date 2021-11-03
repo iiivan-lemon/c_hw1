@@ -22,8 +22,8 @@ jobs:
       - name: Install Scan-build  
         run: sudo apt-get install -y clang-tools
 
-      - name: build
-        run: mkdir build && cd build && cmake .. && make
+      - name: scan-build
+        run: mkdir build && cd build && scan-build cmake .. && scan-build make
 
       - name: cppcheck-action
         uses: deep5050/cppcheck-action@v2.0.0
