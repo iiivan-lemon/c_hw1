@@ -14,7 +14,7 @@ extern "C" {
 
 TEST(TestConsistent1, Bisector) {
     auto *a = (double *) malloc(SIZE_CONDITION * sizeof(double));
-    for (size_t i = 0; i < SIZE_CONDITION; ++i) {
+    for (int i = 0; i < SIZE_CONDITION; ++i) {
         a[i] = i;
     }
     res_coef *expect_res = (res_coef *) malloc(sizeof(res_coef));

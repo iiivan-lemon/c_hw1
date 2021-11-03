@@ -17,8 +17,8 @@ int write_file(const char *path, int size) {
     if (!f) {
         return EXIT_FAILURE;
     }
-    for (int i = 0; i < size; ++i) {
-        fprintf(f, "%lf ", i + DEVIATION);
+    for (size_t i = 0; i < size; ++i) {
+        fprintf(f, "%f ", i+DEVIATION);
     }
     fclose(f);
     return EXIT_SUCCESS;

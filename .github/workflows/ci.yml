@@ -22,8 +22,8 @@ jobs:
       - name: Install Scan-build  
         run: sudo apt-get install -y clang-tools
 
-      - name: build
-        run: mkdir build && cd build && cmake .. && make
+      - name: scan-build
+        run: mkdir build && cd build && scan-build cmake .. && scan-build make
 
       - name: cppcheck-action
         uses: deep5050/cppcheck-action@v2.0.0
@@ -31,8 +31,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN}}
 
       - name: Tests
-        run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && ./tests_parallel && ./comparison &&  lcov -t "c_hw1" -o hw_2.info -c -d . && lcov --remove hw_2.info "/usr/include/*" "./include/*" "/usr/local/*" > coverage.info && genhtml -o report coverage.info
-
+        run: mkdir runtests && cd runtests && cmake .. && make  && make test &&  lcov -t "c_hw1" -o hw_2.info -c -d . && lcov --remove hw_2.info "/usr/include/*" "./include/*" "/usr/local/*" > coverage.info && genhtml -o report coverage.info
 
       - name: Valgrind install
         run: sudo apt-get update && sudo apt-get install -y valgrind && mkdir valgrind_tests  
