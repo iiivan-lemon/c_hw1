@@ -1,5 +1,6 @@
-#include <malloc.h>
 #include "prog.h"
+#include <malloc.h>
+
 
 res_coef *linear_regress(double *a, const size_t size) {
     if (size < 2) {

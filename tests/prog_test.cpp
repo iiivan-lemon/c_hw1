@@ -7,9 +7,9 @@ extern "C" {
 }
 
 #define ITERATION_NUMBER 10
-#define PATH "text.txt"
+#define PATH "test.txt"
 #define SIZE_CONDITION 100000
-#define STRESS_ITERATION_NUMBER 3
+#define STRESS_ITERATION_NUMBER 5
 
 
 TEST(TestConsistent1, Bisector) {
@@ -32,7 +32,7 @@ TEST(TestConsistent2, RandomElems) {
     EXPECT_TRUE(write_file(PATH, SIZE_CONDITION) == EXIT_SUCCESS);
     double *a = read_file(PATH);
     EXPECT_TRUE(a != nullptr);
-    FILE *f = fopen("../data/consistent_res.txt", "w+");
+    FILE *f = fopen("consistent_res.txt", "w+");
     EXPECT_FALSE(f == nullptr);
 
     for (int i = 0; i < STRESS_ITERATION_NUMBER; ++i) {
@@ -69,7 +69,7 @@ TEST(time, time) {
 
 
     average_time = general_time / times;
-    FILE *f = fopen("../data/consistent_time.txt", "w+");
+    FILE *f = fopen("consistent_time.txt", "w+");
     fprintf(f, "%lf", average_time);
     fclose(f);
     free(a);

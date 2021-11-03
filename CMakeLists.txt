@@ -6,20 +6,18 @@ option(parallel "build" OFF)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 set(GCC_COVERAGE_COMPILE_FLAGS "-pthread ")
+set(CMAKE_C_CLANG_TIDY clang-tidy; -checks=*;)
 
 
-
-
-set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS} -Wall -Wpedantic -Werror --coverage  ")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS} -Wall -Wpedantic -Werror --coverage  ")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wpedantic -Werror  --coverage ")
-
 
 
 
 add_library(input_data STATIC project/input_data.c)
 target_include_directories(input_data PUBLIC project)
 
-add_library(consistent STATIC project/prog.c )
+add_library(consistent STATIC project/prog.c)
 target_include_directories(consistent PUBLIC project)
 target_link_libraries(consistent PUBLIC input_data)
 
@@ -27,24 +25,31 @@ add_library(parallel SHARED project/parallel_prog.c)
 target_include_directories(parallel PUBLIC project)
 target_link_libraries(parallel PUBLIC input_data)
 
-add_executable(hw_2 project/main.c )
+add_executable(hw_2 project/main.c)
 
-if(parallel)
+if (parallel)
     message("parallel")
-    target_link_libraries(hw_2  parallel  gcov)
-else()
+    target_link_libraries(hw_2 parallel gcov)
+else ()
     message("consistent")
-    target_link_libraries(hw_2   consistent gcov)
-endif(parallel)
+    target_link_libraries(hw_2 consistent gcov)
+endif (parallel)
 
 find_package(GTest REQUIRED)
 
-add_executable(tests tests/prog_test.cpp tests/input_test.cpp )
-target_link_libraries(tests GTest::gtest consistent input_data gcov )
-
+add_executable(tests tests/prog_test.cpp tests/input_test.cpp)
+target_link_libraries(tests GTest::gtest consistent input_data gcov)
 
 add_executable(tests_parallel tests/parallel_prog_test.cpp tests/input_test.cpp)
-target_link_libraries(tests_parallel GTest::gtest  parallel input_data gcov)
+target_link_libraries(tests_parallel GTest::gtest parallel input_data gcov)
 
-add_executable(comparison tests/comparison.cpp )
+add_executable(comparison tests/comparison.cpp)
 target_link_libraries(comparison GTest::gtest gcov)
+
+enable_testing()
+
+add_test(NAME tests COMMAND tests WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data)
+
+add_test(NAME tests_parallel COMMAND tests_parallel WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data)
+
+add_test(NAME comparison COMMAND comparison WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data)

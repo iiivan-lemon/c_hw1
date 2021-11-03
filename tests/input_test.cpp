@@ -4,7 +4,7 @@ extern "C" {
 #include "input_data.h"
 }
 
-#define PATH "text.txt"
+#define PATH "input_test.txt"
 #define SIZE_CONDITION 100
 
 

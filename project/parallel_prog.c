@@ -1,9 +1,8 @@
-#include <stdlib.h>
 #include <pthread.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include "prog.h"
-
 
 typedef struct {
     size_t col_start;

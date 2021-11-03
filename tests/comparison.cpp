@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
 TEST(Comparision1, Results) {
-    FILE *f_consistent = fopen("../data/consistent_res.txt", "r");
-    FILE *f_parallel = fopen("../data/parallel_res.txt", "r");
+    FILE *f_consistent = fopen("consistent_res.txt", "r");
+    FILE *f_parallel = fopen("parallel_res.txt", "r");
     double res_consistent_k = 0;
     double res_consistent_b = 0;
     double res_parallel_k = 0;
@@ -22,8 +22,8 @@ TEST(Comparision1, Results) {
 }
 
 TEST(Comparision2, Time) {
-    FILE *f_consistent = fopen("../data/consistent_time.txt", "r");
-    FILE *f_parallel = fopen("../data/parallel_time.txt", "r");
+    FILE *f_consistent = fopen("consistent_time.txt", "r");
+    FILE *f_parallel = fopen("parallel_time.txt", "r");
     double time_consistent = 0;
     double time_parallel = 0;
 
