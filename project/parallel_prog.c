@@ -5,8 +5,8 @@
 #include "prog.h"
 
 typedef struct {
-    int col_start;
-    int col_end;
+    size_t col_start;
+    size_t col_end;
     double *array;
     double Sx;
     double Sy;
@@ -18,7 +18,7 @@ typedef struct {
 
 void *thread_func(void *thread_data) {
     pthr_data_t *data = (pthr_data_t *) thread_data;
-    for (int i = 0; i < data->col_end - data->col_start; ++i) {
+    for (size_t i = 0; i < data->col_end - data->col_start; ++i) {
         data->Sx += (data->col_start + i);
         data->Sy += data->array[i];
         data->Sxy += (data->col_start + i) * data->array[i];
@@ -28,7 +28,7 @@ void *thread_func(void *thread_data) {
 }
 
 
-res_coef *linear_regress(double *a, const int size) {
+res_coef *linear_regress(double *a, const size_t size) {
     if (size <= 1) {
         return NULL;
     }

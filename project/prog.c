@@ -2,7 +2,7 @@
 #include <malloc.h>
 
 
-res_coef *linear_regress(double *a, const int size) {
+res_coef *linear_regress(double *a, const size_t size) {
     if (size < 2) {
         return NULL;
     }
@@ -11,7 +11,7 @@ res_coef *linear_regress(double *a, const int size) {
     double Sy = 0;
     double Sxx = 0;
     double Sxy = 0;
-    for (int i = 0; i < size; ++i) {
+    for (size_t i = 0; i < size; ++i) {
         Sx += i;
         Sy += a[i];
         Sxy += i * a[i];

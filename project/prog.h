@@ -9,7 +9,7 @@ struct res_coefficients {
 };
 typedef struct res_coefficients res_coef;
 
-res_coef *linear_regress(double *, const int);
+res_coef *linear_regress(double *, const size_t);
 
 
 #endif     //   PROJECT_PROG_H_
