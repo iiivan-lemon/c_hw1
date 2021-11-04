@@ -6,10 +6,10 @@ option(parallel "build" OFF)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 set(GCC_COVERAGE_COMPILE_FLAGS "-pthread ")
-set(CMAKE_C_CLANG_TIDY clang-tidy; -checks=*;)
+set(CMAKE_C_CLANG_TIDY clang-tidy; -checks=-*,clang-analyzer-*,-clang-analyzer-cplusplus*)
 
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS} -Wall -Wpedantic -Werror --coverage  ")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS} -Wall -Wpedantic -Werror --coverage ")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wpedantic -Werror  --coverage ")
 
 
@@ -17,13 +17,16 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wpedantic -Werror  --cov
 add_library(input_data STATIC project/input_data.c)
 target_include_directories(input_data PUBLIC project)
 
+
 add_library(consistent STATIC project/prog.c)
 target_include_directories(consistent PUBLIC project)
 target_link_libraries(consistent PUBLIC input_data)
+target_link_libraries(consistent PRIVATE m)
 
 add_library(parallel SHARED project/parallel_prog.c)
 target_include_directories(parallel PUBLIC project)
 target_link_libraries(parallel PUBLIC input_data)
+target_link_libraries(parallel PRIVATE m)
 
 add_executable(hw_2 project/main.c)
 

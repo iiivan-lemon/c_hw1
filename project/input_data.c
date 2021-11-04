@@ -1,8 +1,8 @@
-#include "input_data.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "input_data.h"
 
 #define DEVIATION 0.1
 
@@ -17,8 +17,9 @@ int write_file(const char *path, int size) {
     if (!f) {
         return EXIT_FAILURE;
     }
+
     for (size_t i = 0; i < size; ++i) {
-        fprintf(f, "%f ", i+DEVIATION);
+        fprintf(f, "%5f ", i + DEVIATION);
     }
     fclose(f);
     return EXIT_SUCCESS;
@@ -27,9 +28,7 @@ int write_file(const char *path, int size) {
 double *read_file(const char *path) {
     FILE *f;
     f = fopen(path, "re");
-    /*if (!f) {
-        return NULL;
-    }*/
+
     size_t size = numberSize(f);
     if (size < 1) {
         fclose(f);

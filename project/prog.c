@@ -1,6 +1,10 @@
-#include "prog.h"
 #include <malloc.h>
+#include <math.h>
+#include <stdio.h>
 
+#include "prog.h"
+
+#define ACCURACY 0.01
 
 res_coef *linear_regress(double *a, const size_t size) {
     if (size < 2) {
@@ -18,13 +22,13 @@ res_coef *linear_regress(double *a, const size_t size) {
         Sxx += i * i;
     }
 
-
-    res_coef *res = (res_coef*)malloc(sizeof(res_coef));
+    res_coef *res = (res_coef *) malloc(sizeof(res_coef));
     if (res == NULL) {
         return NULL;
     }
     res->k = (Sxy * size - Sx * Sy) / (Sxx * size - Sx * Sx);
     res->b = (Sy - res->k * Sx) / size;
+    res->b = round(res->b / ACCURACY) * ACCURACY;
     return res;
 }
 

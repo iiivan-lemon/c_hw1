@@ -1,8 +1,11 @@
+#include <math.h>
 #include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "prog.h"
+
+#define ACCURACY 0.01
 
 typedef struct {
     size_t col_start;
@@ -91,6 +94,7 @@ res_coef *linear_regress(double *a, const size_t size) {
     free(thread_data);
     res->k = (res_Sxy * size - res_Sx * res_Sy) / (res_Sxx * size - res_Sx * res_Sx);
     res->b = (res_Sy - res->k * res_Sx) / size;
+    res->b = round(res->b / ACCURACY) * ACCURACY;
     return res;
 }
 

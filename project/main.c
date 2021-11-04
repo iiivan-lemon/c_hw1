@@ -1,6 +1,7 @@
+#include <stdlib.h>
+
 #include "input_data.h"
 #include "prog.h"
-#include <stdlib.h>
 
 #define DECIMAL 10
 int main(int argc, char *argv[]) {
@@ -9,6 +10,7 @@ int main(int argc, char *argv[]) {
     }
     char *path = argv[1];
     size_t size = strtol(argv[2], NULL, DECIMAL);
+
     if (write_file(path, size) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
