@@ -31,7 +31,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN}}
 
       - name: Cpplint
-        run: python cpplint/cpplint.py --extensions=cpp tests/* && python cpplint/cpplint.py --extensions=c project/* 
+        run: ./cpplint/run.sh
 
       - name: Tests
         run: mkdir runtests && cd runtests && cmake .. && make  && make test &&  lcov -t "c_hw1" -o hw_2.info -c -d . && lcov --remove hw_2.info "/usr/include/*" "./include/*" "/usr/local/*" > coverage.info && genhtml -o report coverage.info
