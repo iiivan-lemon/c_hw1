@@ -23,7 +23,7 @@ jobs:
         run: sudo apt-get install -y clang-tools
 
       - name: scan-build  clang-tidy
-        run: mkdir build && cd build && scan-build cmake .. && scan-build make
+        run: mkdir build && cd build && scan-build cmake .. && scan-build make 
 
       - name: cppcheck-action
         uses: deep5050/cppcheck-action@v2.0.0
@@ -40,16 +40,16 @@ jobs:
         run: cd valgrind_tests && cmake .. && make && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests_parallel
 
       - name: Sanitizers address
-        run: mkdir build && cd build && cmake -Daddress=ON .. && make && make test
+        run: mkdir san-build && cd build && cmake -Daddress=ON .. && make && make test && cd .. && rm -R san-build
 
       - name: Sanitizers memory
-        run: mkdir build && cd build && cmake -Dmemory=ON .. && make && make test
+        run: mkdir san-build && cd build && cmake -Dmemory=ON .. && make && make test && cd .. && rm -R san-build
         
       - name: Sanitizers undefined
-        run: mkdir build && cd build && cmake -Dundefined=ON .. && make && make test
+        run: mkdir san-build && cd build && cmake -Dundefined=ON .. && make && make test && cd .. && rm -R san-build
 
       - name: Sanitizers thread
-        run: mkdir build && cd build && cmake -Dthread=ON .. && make && make test
+        run: mkdir san-build && cd build && cmake -Dthread=ON .. && make && make test && cd .. && rm -R san-build
 
       - name: coverage
         uses: actions/upload-artifact@v2
