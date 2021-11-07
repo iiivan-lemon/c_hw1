@@ -21,7 +21,7 @@ jobs:
 
       - name: Install Scan-build  
         run: sudo apt-get install -y clang-tools
-
+        
       - name: scan-build  clang-tidy
         run: mkdir build && cd build && scan-build cmake .. && scan-build make 
 
@@ -29,6 +29,12 @@ jobs:
         uses: deep5050/cppcheck-action@v2.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN}}
+        
+      - name: Install Cpplint
+        run: sudo apt-get install python-pip && pip install --user cpplint
+
+      - name: Cpplint
+        run: cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting project/* && cpplint --extensions=cpp --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting tests/*        
 
       - name: Tests
         run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && cmake -Dparallel=ON .. && make && ./tests && ./consistent_test && ./parallel_test && ./comparison  &&  lcov -t "c_hw1" -o hw_2.info -c -d . && lcov --remove hw_2.info "/usr/include/*" "./include/*" "/usr/local/*" > coverage.info && genhtml -o report coverage.info
