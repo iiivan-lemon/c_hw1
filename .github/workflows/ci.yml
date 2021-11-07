@@ -31,25 +31,25 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN}}
 
       - name: Tests
-        run: mkdir runtests && cd runtests && cmake .. && make  && make test &&  lcov -t "c_hw1" -o hw_2.info -c -d . && lcov --remove hw_2.info "/usr/include/*" "./include/*" "/usr/local/*" > coverage.info && genhtml -o report coverage.info
+        run: mkdir runtests && cd runtests && cmake .. && make  && ./tests && cmake -Dparallel=ON .. && make && ./tests && ./consistent_test && ./parallel_test && ./comparison  &&  lcov -t "c_hw1" -o hw_2.info -c -d . && lcov --remove hw_2.info "/usr/include/*" "./include/*" "/usr/local/*" > coverage.info && genhtml -o report coverage.info
 
       - name: Valgrind install
         run: sudo apt-get update && sudo apt-get install -y valgrind && mkdir valgrind_tests  
 
       - name: Valgrind 
-        run: cd valgrind_tests && cmake .. && make && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests_parallel
+        run: cd valgrind_tests && cmake .. && make && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests && && cmake -Dparallel=ON .. && make &&  valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./tests && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./comparison && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all ./hw_2 1.txt 100 && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./parallel_test && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q ./consistent_test
 
       - name: Sanitizers address
-        run: mkdir san-build && cd build && cmake -Daddress=ON .. && make && make test && cd .. && rm -R san-build
+        run: cd build && cmake -Daddress=ON -Dparallel=OFF .. && make  && cmake -Daddress=ON -Dparallel=ON .. && make  
 
       - name: Sanitizers memory
-        run: mkdir san-build && cd build && cmake -Dmemory=ON .. && make && make test && cd .. && rm -R san-build
+        run: cd build && cmake -Dmemory=ON -Dparallel=OFF .. && make  && cmake -Dmemory=ON -Dparallel=ON .. && make
         
       - name: Sanitizers undefined
-        run: mkdir san-build && cd build && cmake -Dundefined=ON .. && make && make test && cd .. && rm -R san-build
+        run: cd build && cmake -Dundefined=ON -Dparallel=OFF .. && make  && cmake -Dundefined=ON -Dparallel=ON .. && make
 
       - name: Sanitizers thread
-        run: mkdir san-build && cd build && cmake -Dthread=ON .. && make && make test && cd .. && rm -R san-build
+        run: cd build && cmake -Dthread=ON -Dparallel=OFF .. && make && cmake -Dthread=ON -Dparallel=ON .. && make 
 
       - name: coverage
         uses: actions/upload-artifact@v2

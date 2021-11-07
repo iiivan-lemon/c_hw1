@@ -49,29 +49,24 @@ target_link_libraries(parallel PRIVATE m)
 
 add_executable(hw_2 project/main.c)
 
+find_package(GTest REQUIRED)
+add_executable(tests tests/test.cpp tests/input_test.cpp)
+
 if (parallel)
     message("parallel")
     target_link_libraries(hw_2 parallel gcov)
+    target_link_libraries(tests GTest::gtest parallel input_data gcov)
 else ()
     message("consistent")
     target_link_libraries(hw_2 consistent gcov)
+    target_link_libraries(tests GTest::gtest consistent input_data gcov)
 endif (parallel)
 
-find_package(GTest REQUIRED)
+add_executable(consistent_test tests/consistent_stress_test.cpp)
+target_link_libraries(consistent_test GTest::gtest consistent input_data gcov)
 
-add_executable(tests tests/prog_test.cpp tests/input_test.cpp)
-target_link_libraries(tests GTest::gtest consistent input_data gcov)
-
-add_executable(tests_parallel tests/parallel_prog_test.cpp tests/input_test.cpp)
-target_link_libraries(tests_parallel GTest::gtest parallel input_data gcov)
+add_executable(parallel_test tests/parallel_stress_test.cpp)
+target_link_libraries(parallel_test GTest::gtest parallel input_data gcov)
 
 add_executable(comparison tests/comparison.cpp)
 target_link_libraries(comparison GTest::gtest gcov)
-
-enable_testing()
-
-add_test(NAME tests COMMAND tests WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data)
-
-add_test(NAME tests_parallel COMMAND tests_parallel WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data)
-
-add_test(NAME comparison COMMAND comparison WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/data)

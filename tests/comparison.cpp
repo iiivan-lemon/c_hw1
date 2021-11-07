@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#define STRESS_ITERATION_NUMBER 5
+
 TEST(Comparision1, Results) {
     FILE *f_consistent = fopen("consistent_res.txt", "r");
     FILE *f_parallel = fopen("parallel_res.txt", "r");
