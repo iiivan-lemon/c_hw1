@@ -21,6 +21,9 @@ jobs:
 
       - name: Install Scan-build  
         run: sudo apt-get install -y clang-tools
+
+      - name: install fbinfer
+        run: VERSION=1.1.0; curl -sSL "https://github.com/facebook/infer/releases/download/v$VERSION/infer-linux64-v$VERSION.tar.xz" | sudo tar -C /opt -xJ && sudo ln -s "/opt/infer-linux64-v$VERSION/bin/infer" /usr/local/bin/infer
         
       - name: scan-build  clang-tidy
         run: mkdir build && cd build && scan-build cmake .. && scan-build make 
@@ -57,11 +60,17 @@ jobs:
       - name: Sanitizers thread
         run: cd build && cmake -Dthread=ON -Dparallel=OFF .. && make && cmake -Dthread=ON -Dparallel=ON .. && make 
 
+      - name: run with fbinfer
+        run: mkdir infer_build && cd infer_build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. && cd .. && infer run --compilation-database infer_build/compile_commands.json
+
       - name: coverage
         uses: actions/upload-artifact@v2
         with:
           name: coverage
           path: runtests/report
+
+
+
 
       
 

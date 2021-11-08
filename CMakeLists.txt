@@ -19,7 +19,7 @@ if(address)
     add_link_options(-fsanitize=address)
 elseif(memory)
     message("memory")
-    add_compile_options(-fsanitize=leak)
+    add_compile_options(-fsanitize=leak)   # -fsanitize=memory don't work, change to leak
     add_link_options(-fsanitize=leak)
 elseif(undefined)
     message("undefined")
