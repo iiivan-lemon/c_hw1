@@ -12,7 +12,6 @@ extern "C" {
 
 TEST(TestResults, Bisector) {
     double *a = new double[SIZE_CONDITION];
-    EXPECT_TRUE(a != nullptr);
     for (size_t i = 0; i < SIZE_CONDITION; ++i) {
         a[i] = i;
     }
@@ -28,15 +27,14 @@ TEST(TestResults, Bisector) {
 
 
 TEST(BadValueParallel, BadSize) {
-    double *a = (double *) malloc(BAD_SIZE * sizeof(double));
-    EXPECT_TRUE(a != nullptr);
+    double *a = new double[BAD_SIZE];
     for (size_t i = 0; i < BAD_SIZE; ++i) {
         a[i] = i;
     }
     res_coef *res = linear_regress(a, BAD_SIZE);
     EXPECT_TRUE(res == nullptr);
     free(res);
-    free(a);
+    delete [] a;
 }
 
 

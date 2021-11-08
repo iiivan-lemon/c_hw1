@@ -8,7 +8,7 @@ extern "C" {
 
 #define ITERATION_NUMBER 10
 #define PATH "test.txt"
-#define SIZE_CONDITION 1000000
+#define SIZE_CONDITION 100000
 #define STRESS_ITERATION_NUMBER 5
 
 

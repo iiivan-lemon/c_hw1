@@ -8,7 +8,7 @@ extern "C" {
 
 #define ITERATION_NUMBER 10
 #define PATH "test.txt"
-#define SIZE_CONDITION 1000000
+#define SIZE_CONDITION 100000
 #define STRESS_ITERATION_NUMBER 5
 
 
@@ -28,8 +28,6 @@ TEST(TestParallel2, RandomElems) {
     fclose(f);
     free(a);
 }
-
-
 
 
 TEST(time, time) {
@@ -55,10 +53,12 @@ TEST(time, time) {
     }
     average_time = general_time / times;
     FILE *f = fopen("parallel_time.txt", "w");
-    EXPECT_TRUE(f != nullptr);
-    fprintf(f, "%lf", average_time);
+    if (f) {
+        fprintf(f, "%lf", average_time);
+        fclose(f);
+    }
 
-    fclose(f);
+
     free(a);
 }
 
