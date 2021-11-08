@@ -55,6 +55,7 @@ TEST(time, time) {
 
     average_time = general_time / times;
     FILE *f = fopen("consistent_time.txt", "w");
+    EXPECT_TRUE(f != nullptr);
     fprintf(f, "%lf ", average_time);
     fclose(f);
     free(a);

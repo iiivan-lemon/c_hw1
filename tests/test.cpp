@@ -12,6 +12,7 @@ extern "C" {
 
 TEST(TestResults, Bisector) {
     double *a = (double *) malloc(SIZE_CONDITION * sizeof(double));
+    EXPECT_TRUE(a != nullptr);
     for (size_t i = 0; i < SIZE_CONDITION; ++i) {
         a[i] = i;
     }
@@ -28,6 +29,7 @@ TEST(TestResults, Bisector) {
 
 TEST(BadValueParallel, BadSize) {
     double *a = (double *) malloc(BAD_SIZE * sizeof(double));
+    EXPECT_TRUE(a != nullptr);
     for (size_t i = 0; i < BAD_SIZE; ++i) {
         a[i] = i;
     }
