@@ -11,7 +11,7 @@ extern "C" {
 #define STRESS_ITERATION_NUMBER 3
 
 TEST(TestResults, Bisector) {
-    double *a = (double *) malloc(SIZE_CONDITION * sizeof(double));
+    double *a = new double[SIZE_CONDITION];
     EXPECT_TRUE(a != nullptr);
     for (size_t i = 0; i < SIZE_CONDITION; ++i) {
         a[i] = i;
@@ -23,7 +23,7 @@ TEST(TestResults, Bisector) {
     EXPECT_TRUE(res->k == expect_res.k);
     EXPECT_TRUE(res->b == expect_res.b);
     free(res);
-    free(a);
+    delete [] a;
 }
 
 
