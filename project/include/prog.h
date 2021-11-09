@@ -1,5 +1,5 @@
-#ifndef PROJECT_PROG_H_
-#define PROJECT_PROG_H_
+#ifndef PROJECT_INCLUDE_PROG_H_
+#define PROJECT_INCLUDE_PROG_H_
 
 #include <stdio.h>
 
@@ -12,4 +12,4 @@ typedef struct res_coefficients res_coef;
 res_coef *linear_regress(double *, const size_t);
 
 
-#endif     //   PROJECT_PROG_H_
+#endif     //   PROJECT_INCLUDE_PROG_H_
