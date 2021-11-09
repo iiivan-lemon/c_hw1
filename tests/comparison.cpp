@@ -6,14 +6,13 @@ TEST(Comparision1, Results) {
     FILE *f_consistent = fopen("consistent_res.txt", "r");
     FILE *f_parallel = fopen("parallel_res.txt", "r");
 
+    EXPECT_FALSE(f_parallel == nullptr || f_consistent == nullptr);
     if (f_parallel == nullptr && f_consistent == nullptr) {
-        ASSERT_FALSE(f_parallel == nullptr && f_consistent == nullptr);
     } else if (f_consistent == nullptr) {
         fclose(f_parallel);
-        ASSERT_FALSE(f_consistent == nullptr);
     } else if (f_parallel == nullptr) {
         fclose(f_consistent);
-        ASSERT_FALSE(f_parallel == nullptr);
+
     } else {
         double res_consistent_k = 0;
         double res_consistent_b = 0;
@@ -38,14 +37,12 @@ TEST(Comparision1, Results) {
 TEST(Comparision2, Time) {
     FILE *f_consistent = fopen("consistent_time.txt", "r");
     FILE *f_parallel = fopen("parallel_time.txt", "r");
+    EXPECT_FALSE(f_parallel == nullptr || f_consistent == nullptr);
     if (f_parallel == nullptr && f_consistent == nullptr) {
-        ASSERT_FALSE(f_parallel == nullptr && f_consistent == nullptr);
     } else if (f_consistent == nullptr) {
         fclose(f_parallel);
-        ASSERT_FALSE(f_consistent == nullptr);
     } else if (f_parallel == nullptr) {
         fclose(f_consistent);
-        ASSERT_FALSE(f_parallel == nullptr);
     } else {
         double time_consistent = 0;
         double time_parallel = 0;
